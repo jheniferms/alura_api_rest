@@ -19,3 +19,19 @@ Atalho para criar struct
 ```
 tys
 ```
+
+## Aula 2
+
+Execute o comando abaixo na pasta github 
+
+```
+go get -u github.com/gorilla/mux
+```
+
+Doc [Gorilla Mux](https://github.com/gorilla/mux)
+
+### PgAdmin
+HostName: 172.21.0.2
+Maintenance database: root
+Username: root
+Password: root
