@@ -15,6 +15,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
+
 	var personalidades []models.Personalidade
 
 	database.DB.Find(&personalidades)
