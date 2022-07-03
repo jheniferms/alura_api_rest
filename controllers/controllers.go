@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/jheniferms/alura_api_rest/database"
 	"github.com/jheniferms/alura_api_rest/models"
 )
 
@@ -16,9 +15,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
 
-	var personalidades []models.Personalidade
-
-	database.DB.Find(&personalidades)
+	personalidades := models.GetAll()
 
 	json.NewEncoder(w).Encode(personalidades)
 }
@@ -26,9 +23,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 func Get(w http.ResponseWriter, r *http.Request) {
 	id := getIdFromUrl(r)
 
-	var personalidade models.Personalidade
-
-	database.DB.First(&personalidade, id)
+	personalidade := models.Get(id)
 
 	json.NewEncoder(w).Encode(personalidade)
 }
@@ -44,7 +39,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 
 	json.NewDecoder(r.Body).Decode(&novaPersonalidade)
 
-	database.DB.Create(&novaPersonalidade)
+	novaPersonalidade = models.Create(novaPersonalidade)
 
 	json.NewEncoder(w).Encode(novaPersonalidade)
 }
@@ -52,9 +47,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 func Delete(w http.ResponseWriter, r *http.Request) {
 	id := getIdFromUrl(r)
 
-	var personalidade models.Personalidade
-
-	database.DB.Delete(&personalidade, id)
+	personalidade := models.Delete(id)
 
 	json.NewEncoder(w).Encode(personalidade)
 }
@@ -63,13 +56,11 @@ func Update(w http.ResponseWriter, r *http.Request) {
 
 	id := getIdFromUrl(r)
 
-	var personalidadeUpdate models.Personalidade
-
-	database.DB.Find(&personalidadeUpdate, id)
+	personalidadeUpdate := models.Get(id)
 
 	json.NewDecoder(r.Body).Decode(&personalidadeUpdate)
 
-	database.DB.Save(&personalidadeUpdate)
+	models.Update(personalidadeUpdate)
 
 	json.NewEncoder(w).Encode(personalidadeUpdate)
 }
