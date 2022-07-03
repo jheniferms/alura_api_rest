@@ -22,7 +22,7 @@ tys
 
 ## Aula 2
 
-Execute o comando abaixo na pasta github 
+Execute o comando abaixo na pasta github.com
 
 ```
 go get -u github.com/gorilla/mux
@@ -44,3 +44,12 @@ Maintenance database: root
 Username: root
 
 Password: root
+
+## Aula 3
+
+Instalar o gorm na pasta github.com
+
+```
+go get -u gorm.io/gorm
+go get -u gorm.io/driver/postgres
+```

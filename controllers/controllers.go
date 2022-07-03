@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/jheniferms/alura_api_rest/database"
 	"github.com/jheniferms/alura_api_rest/models"
 )
 
@@ -15,7 +15,11 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(models.Personalidades)
+	var personalidades []models.Personalidade
+
+	database.DB.Find(&personalidades)
+
+	json.NewEncoder(w).Encode(personalidades)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {
@@ -23,9 +27,9 @@ func Get(w http.ResponseWriter, r *http.Request) {
 
 	id := vars["id"]
 
-	for _, personalidade := range models.Personalidades {
-		if strconv.Itoa(personalidade.Id) == id {
-			json.NewEncoder(w).Encode(personalidade)
-		}
-	}
+	var personalidade models.Personalidade
+
+	database.DB.First(&personalidade, id)
+
+	json.NewEncoder(w).Encode(personalidade)
 }
